@@ -50,6 +50,7 @@ public class CacheConfiguration {
             createCache(cm, fun.gatsby.domain.User.class.getName() + ".authorities");
             createCache(cm, fun.gatsby.domain.PersistentToken.class.getName());
             createCache(cm, fun.gatsby.domain.User.class.getName() + ".persistentTokens");
+            createCache(cm, fun.gatsby.domain.News.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

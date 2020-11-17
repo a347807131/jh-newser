@@ -1,0 +1,8 @@
+entity News{
+	title String,
+    source String,
+    link String,
+    kind String,
+    time LocalDate,
+	content String
+}
