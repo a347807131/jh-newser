@@ -15,6 +15,7 @@
     "bootstrap": "4.5.0",
     "bootstrap-vue": "2.14.0",
     "date-fns": "2.14.0",
+    "element-ui": "^2.14.1",
     "swagger-ui-dist": "3.25.4",
     "vue": "2.6.11",
     "vue-class-component": "7.2.3",
