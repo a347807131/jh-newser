@@ -44,7 +44,7 @@
                     <td>{{news.source}}</td>
                     <td>{{news.link}}</td>
                     <td>{{news.kind}}</td>
-                    <td>{{news.time}}</td>
+                    <td>{{news.time ? $d(Date.parse(news.time), 'short') : ''}}</td>
                     <td>{{news.content}}</td>
                     <td class="text-right">
                         <div class="btn-group">

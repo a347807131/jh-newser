@@ -32,7 +32,7 @@
                         <span v-text="$t('jhdApp.news.time')">Time</span>
                     </dt>
                     <dd>
-                        <span>{{news.time}}</span>
+                        <span v-if="news.time">{{$d(Date.parse(news.time), 'long') }}</span>
                     </dd>
                     <dt>
                         <span v-text="$t('jhdApp.news.content')">Content</span>

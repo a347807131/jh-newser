@@ -3,7 +3,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 
 import * as config from '@/shared/config/config';
-import { DATE_FORMAT } from '@/shared/date/filters';
+import { DATE_TIME_FORMAT } from '@/shared/date/filters';
 import NewsService from '@/entities/news/news.service';
 import { News } from '@/shared/model/news.model';
 
@@ -40,7 +40,7 @@ describe('Service Tests', () => {
       it('should find an element', async () => {
         const returnedFromService = Object.assign(
           {
-            time: format(currentDate, DATE_FORMAT),
+            time: format(currentDate, DATE_TIME_FORMAT),
           },
           elemDefault
         );
@@ -65,7 +65,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
-            time: format(currentDate, DATE_FORMAT),
+            time: format(currentDate, DATE_TIME_FORMAT),
           },
           elemDefault
         );
@@ -100,7 +100,7 @@ describe('Service Tests', () => {
             source: 'BBBBBB',
             link: 'BBBBBB',
             kind: 'BBBBBB',
-            time: format(currentDate, DATE_FORMAT),
+            time: format(currentDate, DATE_TIME_FORMAT),
             content: 'BBBBBB',
           },
           elemDefault
@@ -137,7 +137,7 @@ describe('Service Tests', () => {
             source: 'BBBBBB',
             link: 'BBBBBB',
             kind: 'BBBBBB',
-            time: format(currentDate, DATE_FORMAT),
+            time: format(currentDate, DATE_TIME_FORMAT),
             content: 'BBBBBB',
           },
           elemDefault

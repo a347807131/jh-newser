@@ -19,7 +19,7 @@
     },
     {
       "fieldName": "time",
-      "fieldType": "LocalDate"
+      "fieldType": "Instant"
     },
     {
       "fieldName": "content",

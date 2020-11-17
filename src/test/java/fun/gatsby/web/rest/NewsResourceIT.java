@@ -14,8 +14,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,8 +44,8 @@ public class NewsResourceIT {
     private static final String DEFAULT_KIND = "AAAAAAAAAA";
     private static final String UPDATED_KIND = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_TIME = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_TIME = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";

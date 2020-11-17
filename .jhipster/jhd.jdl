@@ -3,6 +3,6 @@ entity News{
     source String,
     link String,
     kind String,
-    time LocalDate,
+    time Instant,
 	content String
 }

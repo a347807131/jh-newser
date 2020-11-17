@@ -6,7 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 
 /**
  * A News.
@@ -35,7 +35,7 @@ public class News implements Serializable {
     private String kind;
 
     @Column(name = "time")
-    private LocalDate time;
+    private Instant time;
 
     @Column(name = "content")
     private String content;
@@ -101,16 +101,16 @@ public class News implements Serializable {
         this.kind = kind;
     }
 
-    public LocalDate getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public News time(LocalDate time) {
+    public News time(Instant time) {
         this.time = time;
         return this;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

@@ -28,7 +28,7 @@
             <column name="kind" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="time" type="date">
+            <column name="time" type="datetime">
                 <constraints nullable="true" />
             </column>
             <column name="content" type="varchar(255)">
@@ -36,6 +36,7 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+        <dropDefaultValue tableName="news" columnName="time" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20201117084655-1-relations" author="jhipster">
@@ -61,7 +62,7 @@
             <column name="source" type="string"/>
             <column name="link" type="string"/>
             <column name="kind" type="string"/>
-            <column name="time" type="date"/>
+            <column name="time" type="datetime"/>
             <column name="content" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

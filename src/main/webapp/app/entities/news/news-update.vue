@@ -31,24 +31,12 @@
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('jhdApp.news.time')" for="news-time">Time</label>
-                        <b-input-group class="mb-3">
-                            <b-input-group-prepend>
-                                <b-form-datepicker
-                                    aria-controls="news-time"
-                                    v-model="$v.news.time.$model"
-                                    name="time"
-                                    class="form-control"
-                                    :locale="currentLanguage"
-                                    button-only
-                                    today-button
-                                    reset-button
-                                    close-button
-                                >
-                                </b-form-datepicker>
-                            </b-input-group-prepend>
-                            <b-form-input id="news-time" type="text" class="form-control" name="time"  :class="{'valid': !$v.news.time.$invalid, 'invalid': $v.news.time.$invalid }"
-                            v-model="$v.news.time.$model"  />
-                        </b-input-group>
+                        <div class="d-flex">
+                            <input id="news-time" type="datetime-local" class="form-control" name="time" :class="{'valid': !$v.news.time.$invalid, 'invalid': $v.news.time.$invalid }"
+                            
+                            :value="convertDateTimeFromServer($v.news.time.$model)"
+                            @change="updateInstantField('time', $event)"/>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('jhdApp.news.content')" for="news-content">Content</label>
