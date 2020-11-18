@@ -1,7 +1,7 @@
 package fun.gatsby.web.rest;
 
 import fun.gatsby.domain.News;
-import fun.gatsby.repository.NewsRepository;
+import fun.gatsby.service.NewsService;
 import fun.gatsby.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -23,7 +22,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class NewsResource {
 
     private final Logger log = LoggerFactory.getLogger(NewsResource.class);
@@ -33,10 +31,10 @@ public class NewsResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final NewsRepository newsRepository;
+    private final NewsService newsService;
 
-    public NewsResource(NewsRepository newsRepository) {
-        this.newsRepository = newsRepository;
+    public NewsResource(NewsService newsService) {
+        this.newsService = newsService;
     }
 
     /**
@@ -52,7 +50,7 @@ public class NewsResource {
         if (news.getId() != null) {
             throw new BadRequestAlertException("A new news cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        News result = newsRepository.save(news);
+        News result = newsService.save(news);
         return ResponseEntity.created(new URI("/api/news/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -73,7 +71,7 @@ public class NewsResource {
         if (news.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        News result = newsRepository.save(news);
+        News result = newsService.save(news);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, news.getId().toString()))
             .body(result);
@@ -87,7 +85,7 @@ public class NewsResource {
     @GetMapping("/news")
     public List<News> getAllNews() {
         log.debug("REST request to get all News");
-        return newsRepository.findAll();
+        return newsService.findAll();
     }
 
     /**
@@ -99,7 +97,7 @@ public class NewsResource {
     @GetMapping("/news/{id}")
     public ResponseEntity<News> getNews(@PathVariable Long id) {
         log.debug("REST request to get News : {}", id);
-        Optional<News> news = newsRepository.findById(id);
+        Optional<News> news = newsService.findOne(id);
         return ResponseUtil.wrapOrNotFound(news);
     }
 
@@ -112,7 +110,7 @@ public class NewsResource {
     @DeleteMapping("/news/{id}")
     public ResponseEntity<Void> deleteNews(@PathVariable Long id) {
         log.debug("REST request to delete News : {}", id);
-        newsRepository.deleteById(id);
+        newsService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

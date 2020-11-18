@@ -2,7 +2,7 @@
     <!--            <p v-text="$t('footer')">This is your footer.</p>-->
     <el-container id="'footer">
         <el-main>
-            Main
+            Footer
         </el-main>
     </el-container>
 </template>
@@ -12,7 +12,7 @@
 
 <style scoped>
 
-.footer {
+.el-main {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;

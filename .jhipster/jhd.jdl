@@ -6,3 +6,7 @@ entity News{
     time Instant,
 	content String
 }
+
+
+// Set service options to all except few
+service all with serviceImpl

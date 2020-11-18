@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.common with an alias.
 import Vue from 'vue';
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import App from './app.vue';
 import Vue2Filters from 'vue2-filters';
 import router from './router';
@@ -35,14 +35,13 @@ import NewsService from '@/entities/news/news.service';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-
 /* tslint:enable */
 Vue.config.productionTip = false;
 config.initVueApp(Vue);
 config.initFortAwesome(Vue);
 bootstrapVueConfig.initBootstrapVue(Vue);
 Vue.use(Vue2Filters);
-Vue.use(ElementUI)
+Vue.use(ElementUI);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
@@ -80,7 +79,7 @@ router.beforeEach((to, from, next) => {
 /* tslint:disable */
 new Vue({
   el: '#app',
-  components: {App},
+  components: { App },
   template: '<App/>',
   router,
   provide: {

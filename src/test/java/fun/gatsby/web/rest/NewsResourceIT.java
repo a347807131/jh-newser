@@ -3,6 +3,7 @@ package fun.gatsby.web.rest;
 import fun.gatsby.JhdApp;
 import fun.gatsby.domain.News;
 import fun.gatsby.repository.NewsRepository;
+import fun.gatsby.service.NewsService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,6 +53,9 @@ public class NewsResourceIT {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private NewsService newsService;
 
     @Autowired
     private EntityManager em;
@@ -190,7 +194,7 @@ public class NewsResourceIT {
     @Transactional
     public void updateNews() throws Exception {
         // Initialize the database
-        newsRepository.saveAndFlush(news);
+        newsService.save(news);
 
         int databaseSizeBeforeUpdate = newsRepository.findAll().size();
 
@@ -243,7 +247,7 @@ public class NewsResourceIT {
     @Transactional
     public void deleteNews() throws Exception {
         // Initialize the database
-        newsRepository.saveAndFlush(news);
+        newsService.save(news);
 
         int databaseSizeBeforeDelete = newsRepository.findAll().size();
 
