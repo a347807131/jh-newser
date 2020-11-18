@@ -7,6 +7,13 @@ entity News {
   content String
 }
 
+entity UserExt{
+	pthone String,
+}
+relationship OneToOne{
+	 UserExt{user(email) } to User with jpaDerivedIdentifier
+}
+
 service News with serviceImpl
 
 paginate News with pagination

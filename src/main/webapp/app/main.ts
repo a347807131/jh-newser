@@ -30,6 +30,7 @@ import ConfigurationService from '@/admin/configuration/configuration.service';
 /* tslint:disable */
 
 import NewsService from '@/entities/news/news.service';
+import UserExtService from '@/entities/user-ext/user-ext.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 import ElementUI from 'element-ui';
@@ -98,6 +99,7 @@ new Vue({
     alertService: () => alertService,
     translationService: () => translationService,
     newsService: () => new NewsService(),
+    userExtService: () => new UserExtService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },

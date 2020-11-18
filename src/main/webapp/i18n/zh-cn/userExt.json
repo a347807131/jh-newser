@@ -1,0 +1,23 @@
+{
+  "jhdApp": {
+    "userExt": {
+      "home": {
+        "title": "User Exts",
+        "createLabel": "创建新 User Ext",
+        "createOrEditLabel": "创建或编辑 User Ext",
+        "notFound": "No User Exts found"
+      },
+      "created": "User Ext {{ param }} 创建成功",
+      "updated": "User Ext {{ param }} 更新成功",
+      "deleted": "User Ext {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 User Ext {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "User Ext"
+      },
+      "pthone": "Pthone",
+      "user": "User"
+    }
+  }
+}
