@@ -16,12 +16,12 @@
       "detail": {
         "title": "News"
       },
-      "title": "Title",
-      "source": "Source",
-      "link": "Link",
-      "kind": "Kind",
-      "time": "Time",
-      "content": "Content"
+      "title": "标题",
+      "source": "来源",
+      "link": "原文链接",
+      "kind": "种类",
+      "time": "发布时间",
+      "content": "内容"
     }
   }
 }
