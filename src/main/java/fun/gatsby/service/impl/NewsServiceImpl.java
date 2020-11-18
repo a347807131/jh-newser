@@ -6,10 +6,11 @@ import fun.gatsby.repository.NewsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,9 +36,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<News> findAll() {
+    public Page<News> findAll(Pageable pageable) {
         log.debug("Request to get all News");
-        return newsRepository.findAll();
+        return newsRepository.findAll(pageable);
     }
 
 

@@ -2,7 +2,9 @@ package fun.gatsby.service;
 
 import fun.gatsby.domain.News;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 /**
@@ -21,9 +23,10 @@ public interface NewsService {
     /**
      * Get all the news.
      *
+     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    List<News> findAll();
+    Page<News> findAll(Pageable pageable);
 
 
     /**

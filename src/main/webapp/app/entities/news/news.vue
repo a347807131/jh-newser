@@ -24,13 +24,13 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th><span v-text="$t('global.field.id')">ID</span></th>
-                    <th><span v-text="$t('jhdApp.news.title')">Title</span></th>
-                    <th><span v-text="$t('jhdApp.news.source')">Source</span></th>
-                    <th><span v-text="$t('jhdApp.news.link')">Link</span></th>
-                    <th><span v-text="$t('jhdApp.news.kind')">Kind</span></th>
-                    <th><span v-text="$t('jhdApp.news.time')">Time</span></th>
-                    <th><span v-text="$t('jhdApp.news.content')">Content</span></th>
+                    <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('title')"><span v-text="$t('jhdApp.news.title')">Title</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('source')"><span v-text="$t('jhdApp.news.source')">Source</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'source'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('link')"><span v-text="$t('jhdApp.news.link')">Link</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'link'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('kind')"><span v-text="$t('jhdApp.news.kind')">Kind</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('time')"><span v-text="$t('jhdApp.news.time')">Time</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'time'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('content')"><span v-text="$t('jhdApp.news.content')">Content</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'content'"></jhi-sort-indicator></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -79,6 +79,14 @@
                 <button type="button" class="btn btn-primary" id="jhi-confirm-delete-news" v-text="$t('entity.action.delete')" v-on:click="removeNews()">Delete</button>
             </div>
         </b-modal>
+        <div v-show="news && news.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
+            </div>
+        </div>
     </div>
 </template>
 

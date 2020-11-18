@@ -16,6 +16,7 @@ const store = config.initVueXStore(localVue);
 localVue.component('font-awesome-icon', {});
 localVue.component('b-alert', {});
 localVue.component('b-badge', {});
+localVue.component('jhi-sort-indicator', {});
 localVue.directive('b-modal', {});
 localVue.component('b-button', {});
 localVue.component('router-link', {});
@@ -42,7 +43,7 @@ describe('Component Tests', () => {
         store,
         i18n,
         localVue,
-        stubs: { bModal: bModalStub as any },
+        stubs: { jhiItemCount: true, bPagination: true, bModal: bModalStub as any },
         provide: {
           alertService: () => new AlertService(store),
           newsService: () => newsServiceStub,
@@ -62,6 +63,68 @@ describe('Component Tests', () => {
       // THEN
       expect(newsServiceStub.retrieve.called).toBeTruthy();
       expect(comp.news[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+    });
+
+    it('should load a page', async () => {
+      // GIVEN
+      newsServiceStub.retrieve.resolves({ headers: {}, data: [{ id: 123 }] });
+      comp.previousPage = 1;
+
+      // WHEN
+      comp.loadPage(2);
+      await comp.$nextTick();
+
+      // THEN
+      expect(newsServiceStub.retrieve.called).toBeTruthy();
+      expect(comp.news[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+    });
+
+    it('should not load a page if the page is the same as the previous page', () => {
+      // GIVEN
+      newsServiceStub.retrieve.reset();
+      comp.previousPage = 1;
+
+      // WHEN
+      comp.loadPage(1);
+
+      // THEN
+      expect(newsServiceStub.retrieve.called).toBeFalsy();
+    });
+
+    it('should re-initialize the page', async () => {
+      // GIVEN
+      newsServiceStub.retrieve.reset();
+      newsServiceStub.retrieve.resolves({ headers: {}, data: [{ id: 123 }] });
+
+      // WHEN
+      comp.loadPage(2);
+      await comp.$nextTick();
+      comp.clear();
+      await comp.$nextTick();
+
+      // THEN
+      expect(newsServiceStub.retrieve.callCount).toEqual(3);
+      expect(comp.page).toEqual(1);
+      expect(comp.news[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+    });
+
+    it('should calculate the sort attribute for an id', () => {
+      // WHEN
+      const result = comp.sort();
+
+      // THEN
+      expect(result).toEqual(['id,desc']);
+    });
+
+    it('should calculate the sort attribute for a non-id attribute', () => {
+      // GIVEN
+      comp.propOrder = 'name';
+
+      // WHEN
+      const result = comp.sort();
+
+      // THEN
+      expect(result).toEqual(['name,desc', 'id']);
     });
     it('Should call delete service on confirmDelete', async () => {
       // GIVEN

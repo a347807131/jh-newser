@@ -30,7 +30,7 @@
   "changelogDate": "20201117084655",
   "entityTableName": "news",
   "dto": "no",
-  "pagination": "no",
+  "pagination": "pagination",
   "service": "serviceImpl",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
