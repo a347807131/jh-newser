@@ -45,8 +45,8 @@
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('jhdApp.news.content')" for="news-content">Content</label>
-                        <input type="text" class="form-control" name="content" id="news-content"
-                            :class="{'valid': !$v.news.content.$invalid, 'invalid': $v.news.content.$invalid }" v-model="$v.news.content.$model" />
+                        <textarea class="form-control" name="content" id="news-content"
+                            :class="{'valid': !$v.news.content.$invalid, 'invalid': $v.news.content.$invalid }" v-model="$v.news.content.$model" ></textarea>
                     </div>
                 </div>
                 <div>

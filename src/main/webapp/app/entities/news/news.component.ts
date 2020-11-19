@@ -5,12 +5,14 @@ import Vue2Filters from 'vue2-filters';
 import { INews } from '@/shared/model/news.model';
 import AlertMixin from '@/shared/alert/alert.mixin';
 
+import JhiDataUtils from '@/shared/data/data-utils.service';
+
 import NewsService from './news.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],
 })
-export default class News extends mixins(AlertMixin) {
+export default class News extends mixins(JhiDataUtils, AlertMixin) {
   @Inject('newsService') private newsService: () => NewsService;
   private removeId: number = null;
   public itemsPerPage = 20;

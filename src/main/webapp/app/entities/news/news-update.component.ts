@@ -1,4 +1,7 @@
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import { Component, Inject } from 'vue-property-decorator';
+
+import { mixins } from 'vue-class-component';
+import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vuelidate/lib/validators';
 import format from 'date-fns/format';
@@ -29,7 +32,7 @@ const validations: any = {
 @Component({
   validations,
 })
-export default class NewsUpdate extends Vue {
+export default class NewsUpdate extends mixins(JhiDataUtils) {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('newsService') private newsService: () => NewsService;
   public news: INews = new News();

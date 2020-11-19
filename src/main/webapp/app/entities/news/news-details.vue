@@ -38,7 +38,7 @@
                         <span v-text="$t('jhdApp.news.content')">Content</span>
                     </dt>
                     <dd>
-                        <span>{{news.content}}</span>
+                        <span v-html="news.content"></span>
                     </dd>
                 </dl>
                 <button type="submit"

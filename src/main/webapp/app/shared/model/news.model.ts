@@ -7,7 +7,7 @@ export interface INews {
   link?: string;
   kind?: string;
   time?: Date;
-  content?: string;
+  content?: any;
   userExts?: IUserExt[];
 }
 
@@ -19,7 +19,7 @@ export class News implements INews {
     public link?: string,
     public kind?: string,
     public time?: Date,
-    public content?: string,
+    public content?: any,
     public userExts?: IUserExt[]
   ) {}
 }

@@ -42,6 +42,7 @@ public class News implements Serializable {
     @Column(name = "time")
     private Instant time;
 
+    @Lob
     @Column(name = "content")
     private String content;
 

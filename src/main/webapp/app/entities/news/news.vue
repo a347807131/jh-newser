@@ -30,7 +30,7 @@
                     <th v-on:click="changeOrder('link')"><span v-text="$t('jhdApp.news.link')">Link</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'link'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('kind')"><span v-text="$t('jhdApp.news.kind')">Kind</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('time')"><span v-text="$t('jhdApp.news.time')">Time</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'time'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('content')"><span v-text="$t('jhdApp.news.content')">Content</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'content'"></jhi-sort-indicator></th>
+<!--                    <th v-on:click="changeOrder('content')"><span v-text="$t('jhdApp.news.content')">Content</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'content'"></jhi-sort-indicator></th>-->
                     <th></th>
                 </tr>
                 </thead>
@@ -45,7 +45,7 @@
                     <td>{{news.link}}</td>
                     <td>{{news.kind}}</td>
                     <td>{{news.time ? $d(Date.parse(news.time), 'short') : ''}}</td>
-                    <td>{{news.content}}</td>
+<!--                    <td>{{news.content}}</td>-->
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'NewsView', params: {newsId: news.id}}" tag="button" class="btn btn-info btn-sm details">

@@ -4,7 +4,7 @@ entity News {
   link String required unique,
   kind String,
   time Instant,
-  content String
+  content TextBlob
 }
 
 entity UserExt{
