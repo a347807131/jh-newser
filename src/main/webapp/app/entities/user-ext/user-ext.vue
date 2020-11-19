@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         <span v-for="(news, i) in userExt.news" :key="news.id">{{i > 0 ? ', ' : ''}}
-                            <router-link class="form-control-static" :to="{name: 'NewsView', params: {newsId: news.id}}">{{news.id}}</router-link>
+                            <router-link class="form-control-static" :to="{name: 'NewsView', params: {newsId: news.id}}">{{news.title}}</router-link>
                         </span>
                     </td>
                     <td class="text-right">

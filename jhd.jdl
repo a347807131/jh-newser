@@ -1,7 +1,7 @@
 entity News {
   title String,
   source String,
-  link String,
+  link String required unique,
   kind String,
   time Instant,
   content String
@@ -15,7 +15,7 @@ relationship OneToOne{
 }
 
 relationship ManyToMany{
-	UserExt to News
+	UserExt{news(title) } to News{userExt}
 }
 
 service News with serviceImpl

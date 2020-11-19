@@ -147,6 +147,25 @@ public class NewsResourceIT {
 
     @Test
     @Transactional
+    public void checkLinkIsRequired() throws Exception {
+        int databaseSizeBeforeTest = newsRepository.findAll().size();
+        // set the field null
+        news.setLink(null);
+
+        // Create the News, which fails.
+
+
+        restNewsMockMvc.perform(post("/api/news").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(news)))
+            .andExpect(status().isBadRequest());
+
+        List<News> newsList = newsRepository.findAll();
+        assertThat(newsList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllNews() throws Exception {
         // Initialize the database
         newsRepository.saveAndFlush(news);

@@ -21,7 +21,7 @@
                     </dt>
                     <dd>
                         <span v-for="(news, i) in userExt.news" :key="news.id">{{i > 0 ? ', ' : ''}}
-                            <router-link :to="{name: 'NewsView', params: {newsId: news.id}}">{{news.id}}</router-link>
+                            <router-link :to="{name: 'NewsView', params: {newsId: news.id}}">{{news.title}}</router-link>
                         </span>
                     </dd>
                 </dl>

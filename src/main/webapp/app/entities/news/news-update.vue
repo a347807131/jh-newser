@@ -22,7 +22,12 @@
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('jhdApp.news.link')" for="news-link">Link</label>
                         <input type="text" class="form-control" name="link" id="news-link"
-                            :class="{'valid': !$v.news.link.$invalid, 'invalid': $v.news.link.$invalid }" v-model="$v.news.link.$model" />
+                            :class="{'valid': !$v.news.link.$invalid, 'invalid': $v.news.link.$invalid }" v-model="$v.news.link.$model"  required/>
+                        <div v-if="$v.news.link.$anyDirty && $v.news.link.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.news.link.required" v-text="$t('entity.validation.required')">
+                                This field is required.
+                            </small>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('jhdApp.news.kind')" for="news-kind">Kind</label>

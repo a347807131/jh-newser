@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -31,7 +32,8 @@ public class News implements Serializable {
     @Column(name = "source")
     private String source;
 
-    @Column(name = "link")
+    @NotNull
+    @Column(name = "link", nullable = false, unique = true)
     private String link;
 
     @Column(name = "kind")

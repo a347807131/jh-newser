@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <label v-text="$t('jhdApp.userExt.news')" for="user-ext-news">News</label>
                         <select class="form-control" id="user-ext-news" multiple name="news" v-model="userExt.news">
-                            <option v-bind:value="getSelected(userExt.news, newsOption)" v-for="newsOption in news" :key="newsOption.id">{{newsOption.id}}</option>
+                            <option v-bind:value="getSelected(userExt.news, newsOption)" v-for="newsOption in news" :key="newsOption.id">{{newsOption.title}}</option>
                         </select>
                     </div>
                 </div>

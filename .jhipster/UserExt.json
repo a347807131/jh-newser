@@ -21,7 +21,7 @@
       "otherEntityName": "news",
       "otherEntityRelationshipName": "userExt",
       "relationshipName": "news",
-      "otherEntityField": "id",
+      "otherEntityField": "title",
       "ownerSide": true
     }
   ],

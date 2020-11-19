@@ -17,7 +17,9 @@ const validations: any = {
   news: {
     title: {},
     source: {},
-    link: {},
+    link: {
+      required,
+    },
     kind: {},
     time: {},
     content: {},

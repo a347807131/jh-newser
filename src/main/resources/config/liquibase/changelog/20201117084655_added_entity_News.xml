@@ -23,7 +23,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="link" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_news_link" />
             </column>
             <column name="kind" type="varchar(255)">
                 <constraints nullable="true" />
