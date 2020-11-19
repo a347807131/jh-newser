@@ -94,12 +94,7 @@ public class NewsResource {
     public ResponseEntity<List<News>> getAllNews(Pageable pageable) {
         log.debug("REST request to get a page of News");
         Page<News> page = newsService.findAll(pageable);
-        //曲线救国，批量查询时不查news.content
-        List<News> newsList = page.getContent();
-        for (News news :
-            newsList) {
-            news.setContent(null);
-        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

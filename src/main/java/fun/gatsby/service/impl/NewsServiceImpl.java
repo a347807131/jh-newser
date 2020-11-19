@@ -38,7 +38,7 @@ public class NewsServiceImpl implements NewsService {
     @Transactional(readOnly = true)
     public Page<News> findAll(Pageable pageable) {
         log.debug("Request to get all News");
-        return newsRepository.findAll(pageable);
+        return newsRepository.findAllWithoutContent(pageable);
     }
 
 
