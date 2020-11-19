@@ -21,6 +21,12 @@
                             <option v-bind:value="userExt.user && userOption.id === userExt.user.id ? userExt.user : userOption" v-for="userOption in users" :key="userOption.id">{{userOption.email}}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label v-text="$t('jhdApp.userExt.news')" for="user-ext-news">News</label>
+                        <select class="form-control" id="user-ext-news" multiple name="news" v-model="userExt.news">
+                            <option v-bind:value="getSelected(userExt.news, newsOption)" v-for="newsOption in news" :key="newsOption.id">{{newsOption.id}}</option>
+                        </select>
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

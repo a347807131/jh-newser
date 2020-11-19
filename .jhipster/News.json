@@ -26,7 +26,16 @@
       "fieldType": "String"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "userExt",
+      "otherEntityRelationshipName": "news",
+      "relationshipName": "userExt",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
   "changelogDate": "20201117084655",
   "entityTableName": "news",
   "dto": "no",

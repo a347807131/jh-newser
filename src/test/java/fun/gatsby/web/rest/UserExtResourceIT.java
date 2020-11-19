@@ -8,19 +8,26 @@ import fun.gatsby.repository.UserRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -28,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link UserExtResource} REST controller.
  */
 @SpringBootTest(classes = JhdApp.class)
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 public class UserExtResourceIT {
@@ -39,6 +47,9 @@ public class UserExtResourceIT {
     private UserExtRepository userExtRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Mock
+    private UserExtRepository userExtRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -176,6 +187,26 @@ public class UserExtResourceIT {
             .andExpect(jsonPath("$.[*].pthone").value(hasItem(DEFAULT_PTHONE)));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllUserExtsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(userExtRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restUserExtMockMvc.perform(get("/api/user-exts?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(userExtRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllUserExtsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(userExtRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restUserExtMockMvc.perform(get("/api/user-exts?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(userExtRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getUserExt() throws Exception {

@@ -6,6 +6,9 @@ import parse from 'date-fns/parse';
 import parseISO from 'date-fns/parseISO';
 import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
+import UserExtService from '../user-ext/user-ext.service';
+import { IUserExt } from '@/shared/model/user-ext.model';
+
 import AlertService from '@/shared/alert/alert.service';
 import { INews, News } from '@/shared/model/news.model';
 import NewsService from './news.service';
@@ -28,6 +31,10 @@ export default class NewsUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('newsService') private newsService: () => NewsService;
   public news: INews = new News();
+
+  @Inject('userExtService') private userExtService: () => UserExtService;
+
+  public userExts: IUserExt[] = [];
   public isSaving = false;
   public currentLanguage = '';
 
@@ -36,6 +43,7 @@ export default class NewsUpdate extends Vue {
       if (to.params.newsId) {
         vm.retrieveNews(to.params.newsId);
       }
+      vm.initRelationships();
     });
   }
 
@@ -108,5 +116,11 @@ export default class NewsUpdate extends Vue {
     this.$router.go(-1);
   }
 
-  public initRelationships(): void {}
+  public initRelationships(): void {
+    this.userExtService()
+      .retrieve()
+      .then(res => {
+        this.userExts = res.data;
+      });
+  }
 }

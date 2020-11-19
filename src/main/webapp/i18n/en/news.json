@@ -21,7 +21,8 @@
       "link": "Link",
       "kind": "Kind",
       "time": "Time",
-      "content": "Content"
+      "content": "Content",
+      "userExt": "User Ext"
     }
   }
 }

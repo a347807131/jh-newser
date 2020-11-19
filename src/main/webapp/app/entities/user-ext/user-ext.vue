@@ -27,6 +27,7 @@
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                     <th><span v-text="$t('jhdApp.userExt.pthone')">Pthone</span></th>
                     <th><span v-text="$t('jhdApp.userExt.user')">User</span></th>
+                    <th><span v-text="$t('jhdApp.userExt.news')">News</span></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -39,6 +40,11 @@
                     <td>{{userExt.pthone}}</td>
                     <td>
                         {{userExt.user ? userExt.user.email : ''}}
+                    </td>
+                    <td>
+                        <span v-for="(news, i) in userExt.news" :key="news.id">{{i > 0 ? ', ' : ''}}
+                            <router-link class="form-control-static" :to="{name: 'NewsView', params: {newsId: news.id}}">{{news.id}}</router-link>
+                        </span>
                     </td>
                     <td class="text-right">
                         <div class="btn-group">

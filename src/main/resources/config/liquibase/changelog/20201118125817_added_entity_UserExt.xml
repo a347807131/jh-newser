@@ -25,6 +25,17 @@
 
     <changeSet id="20201118125817-1-relations" author="jhipster">
 
+        <createTable tableName="user_ext_news">
+            <column name="news_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_ext_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="user_ext_id, news_id" tableName="user_ext_news"/>
+        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 

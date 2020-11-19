@@ -11,6 +11,8 @@ import UserExtService from '@/entities/user-ext/user-ext.service';
 
 import UserService from '@/admin/user-management/user-management.service';
 
+import NewsService from '@/entities/news/news.service';
+
 const localVue = createLocalVue();
 
 config.initVueApp(localVue);
@@ -39,6 +41,8 @@ describe('Component Tests', () => {
           userExtService: () => userExtServiceStub,
 
           userService: () => new UserService(),
+
+          newsService: () => new NewsService(),
         },
       });
       comp = wrapper.vm;

@@ -15,6 +15,14 @@
       "otherEntityField": "email",
       "ownerSide": true,
       "useJPADerivedIdentifier": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "news",
+      "otherEntityRelationshipName": "userExt",
+      "relationshipName": "news",
+      "otherEntityField": "id",
+      "ownerSide": true
     }
   ],
   "changelogDate": "20201118125817",

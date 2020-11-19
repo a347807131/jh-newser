@@ -16,6 +16,14 @@
                     <dd>
                         {{userExt.user ? userExt.user.email : ''}}
                     </dd>
+                    <dt>
+                        <span v-text="$t('jhdApp.userExt.news')">News</span>
+                    </dt>
+                    <dd>
+                        <span v-for="(news, i) in userExt.news" :key="news.id">{{i > 0 ? ', ' : ''}}
+                            <router-link :to="{name: 'NewsView', params: {newsId: news.id}}">{{news.id}}</router-link>
+                        </span>
+                    </dd>
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

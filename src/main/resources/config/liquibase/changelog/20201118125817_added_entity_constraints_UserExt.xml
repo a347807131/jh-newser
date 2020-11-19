@@ -14,5 +14,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
+        <addForeignKeyConstraint baseColumnNames="user_ext_id"
+                                 baseTableName="user_ext_news"
+                                 constraintName="fk_user_ext_news_user_ext_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_ext"/>
+
+        <addForeignKeyConstraint baseColumnNames="news_id"
+                                 baseTableName="user_ext_news"
+                                 constraintName="fk_user_ext_news_news_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="news"/>
+        
     </changeSet>
 </databaseChangeLog>

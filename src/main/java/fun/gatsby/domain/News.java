@@ -1,5 +1,6 @@
 package fun.gatsby.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -7,6 +8,8 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A News.
@@ -39,6 +42,11 @@ public class News implements Serializable {
 
     @Column(name = "content")
     private String content;
+
+    @ManyToMany(mappedBy = "news")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
+    private Set<UserExt> userExts = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -125,6 +133,31 @@ public class News implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Set<UserExt> getUserExts() {
+        return userExts;
+    }
+
+    public News userExts(Set<UserExt> userExts) {
+        this.userExts = userExts;
+        return this;
+    }
+
+    public News addUserExt(UserExt userExt) {
+        this.userExts.add(userExt);
+        userExt.getNews().add(this);
+        return this;
+    }
+
+    public News removeUserExt(UserExt userExt) {
+        this.userExts.remove(userExt);
+        userExt.getNews().remove(this);
+        return this;
+    }
+
+    public void setUserExts(Set<UserExt> userExts) {
+        this.userExts = userExts;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

@@ -92,13 +92,14 @@ public class UserExtResource {
     /**
      * {@code GET  /user-exts} : get all the userExts.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userExts in body.
      */
     @GetMapping("/user-exts")
     @Transactional(readOnly = true)
-    public List<UserExt> getAllUserExts() {
+    public List<UserExt> getAllUserExts(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all UserExts");
-        return userExtRepository.findAll();
+        return userExtRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -111,7 +112,7 @@ public class UserExtResource {
     @Transactional(readOnly = true)
     public ResponseEntity<UserExt> getUserExt(@PathVariable Long id) {
         log.debug("REST request to get UserExt : {}", id);
-        Optional<UserExt> userExt = userExtRepository.findById(id);
+        Optional<UserExt> userExt = userExtRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(userExt);
     }
 

@@ -4,6 +4,9 @@ import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vue
 
 import UserService from '@/admin/user-management/user-management.service';
 
+import NewsService from '../news/news.service';
+import { INews } from '@/shared/model/news.model';
+
 import AlertService from '@/shared/alert/alert.service';
 import { IUserExt, UserExt } from '@/shared/model/user-ext.model';
 import UserExtService from './user-ext.service';
@@ -25,6 +28,10 @@ export default class UserExtUpdate extends Vue {
   @Inject('userService') private userService: () => UserService;
 
   public users: Array<any> = [];
+
+  @Inject('newsService') private newsService: () => NewsService;
+
+  public news: INews[] = [];
   public isSaving = false;
   public currentLanguage = '';
 
@@ -45,6 +52,7 @@ export default class UserExtUpdate extends Vue {
         this.currentLanguage = this.$store.getters.currentLanguage;
       }
     );
+    this.userExt.news = [];
   }
 
   public save(): void {
@@ -88,5 +96,21 @@ export default class UserExtUpdate extends Vue {
       .then(res => {
         this.users = res.data;
       });
+    this.newsService()
+      .retrieve()
+      .then(res => {
+        this.news = res.data;
+      });
+  }
+
+  public getSelected(selectedVals, option): any {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }

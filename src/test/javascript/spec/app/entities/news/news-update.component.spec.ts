@@ -13,6 +13,8 @@ import NewsUpdateComponent from '@/entities/news/news-update.vue';
 import NewsClass from '@/entities/news/news-update.component';
 import NewsService from '@/entities/news/news.service';
 
+import UserExtService from '@/entities/user-ext/user-ext.service';
+
 const localVue = createLocalVue();
 
 config.initVueApp(localVue);
@@ -39,6 +41,8 @@ describe('Component Tests', () => {
         provide: {
           alertService: () => new AlertService(store),
           newsService: () => newsServiceStub,
+
+          userExtService: () => new UserExtService(),
         },
       });
       comp = wrapper.vm;

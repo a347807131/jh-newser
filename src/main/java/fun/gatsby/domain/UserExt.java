@@ -6,6 +6,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A UserExt.
@@ -28,6 +30,13 @@ public class UserExt implements Serializable {
     @MapsId
     @JoinColumn(name = "id")
     private User user;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "user_ext_news",
+               joinColumns = @JoinColumn(name = "user_ext_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "news_id", referencedColumnName = "id"))
+    private Set<News> news = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -62,6 +71,31 @@ public class UserExt implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public UserExt news(Set<News> news) {
+        this.news = news;
+        return this;
+    }
+
+    public UserExt addNews(News news) {
+        this.news.add(news);
+        news.getUserExts().add(this);
+        return this;
+    }
+
+    public UserExt removeNews(News news) {
+        this.news.remove(news);
+        news.getUserExts().remove(this);
+        return this;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

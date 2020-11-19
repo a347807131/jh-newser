@@ -14,6 +14,10 @@ relationship OneToOne{
 	 UserExt{user(email) } to User with jpaDerivedIdentifier
 }
 
+relationship ManyToMany{
+	UserExt to News
+}
+
 service News with serviceImpl
 
 paginate News with pagination
