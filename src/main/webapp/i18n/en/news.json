@@ -2,7 +2,7 @@
   "jhdApp": {
     "news": {
       "home": {
-        "title": "新闻",
+        "title": "news",
         "createLabel": "Create a new News",
         "createOrEditLabel": "Create or edit a News",
         "notFound": "No News found"
@@ -14,14 +14,14 @@
         "question": "Are you sure you want to delete News {{ id }}?"
       },
       "detail": {
-        "title": "新闻"
+        "title": "News"
       },
-      "title": "标题",
-      "source": "来源",
-      "link": "原链接",
-      "kind": "类别",
-      "time": "发布时间",
-      "content": "内容",
+      "title": "Title",
+      "source": "Source",
+      "link": "Link",
+      "kind": "Kind",
+      "time": "Time",
+      "content": "Content",
       "userExt": "User Ext"
     }
   }

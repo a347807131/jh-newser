@@ -27,7 +27,6 @@
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('title')"><span v-text="$t('jhdApp.news.title')">Title</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('source')"><span v-text="$t('jhdApp.news.source')">Source</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'source'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('link')"><span v-text="$t('jhdApp.news.link')">Link</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'link'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('kind')"><span v-text="$t('jhdApp.news.kind')">Kind</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('time')"><span v-text="$t('jhdApp.news.time')">Time</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'time'"></jhi-sort-indicator></th>
                     <th></th>
