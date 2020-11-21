@@ -37,10 +37,11 @@
                     <dt>
                         <span v-text="$t('jhdApp.news.content')">Content</span>
                     </dt>
-                    <dd>
-                        <span v-html="news.content"></span>
-                    </dd>
                 </dl>
+                <dd>
+                    <span v-html="news.content" class="heti--ancient heti--vertical"></span>
+                </dd>
+
                 <button type="submit"
                         v-on:click.prevent="previousState()"
                         class="btn btn-info">
