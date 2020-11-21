@@ -30,7 +30,6 @@
                     <th v-on:click="changeOrder('link')"><span v-text="$t('jhdApp.news.link')">Link</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'link'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('kind')"><span v-text="$t('jhdApp.news.kind')">Kind</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('time')"><span v-text="$t('jhdApp.news.time')">Time</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'time'"></jhi-sort-indicator></th>
-<!--                    <th v-on:click="changeOrder('content')"><span v-text="$t('jhdApp.news.content')">Content</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'content'"></jhi-sort-indicator></th>-->
                     <th></th>
                 </tr>
                 </thead>
@@ -40,12 +39,10 @@
                     <td>
                         <router-link :to="{name: 'NewsView', params: {newsId: news.id}}">{{news.id}}</router-link>
                     </td>
-                    <td>{{news.title}}</td>
+                    <td><a :href="news.link" target="_blank"> {{news.title}}</a></td>
                     <td>{{news.source}}</td>
-                    <td>{{news.link}}</td>
                     <td>{{news.kind}}</td>
                     <td>{{news.time ? $d(Date.parse(news.time), 'short') : ''}}</td>
-<!--                    <td>{{news.content}}</td>-->
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'NewsView', params: {newsId: news.id}}" tag="button" class="btn btn-info btn-sm details">
@@ -67,6 +64,15 @@
                     </td>
                 </tr>
                 </tbody>
+                <infinite-loading
+                    ref="infiniteLoading"
+                    v-if="totalItems > itemsPerPage"
+                    :identifier="infiniteId"
+                    slot="append"
+                    @infinite="loadMore"
+                    force-use-infinite-wrapper=".el-table__body-wrapper"
+                    :distance='20'>
+                </infinite-loading>
             </table>
         </div>
         <b-modal ref="removeEntity" id="removeEntity" >
@@ -79,14 +85,6 @@
                 <button type="button" class="btn btn-primary" id="jhi-confirm-delete-news" v-text="$t('entity.action.delete')" v-on:click="removeNews()">Delete</button>
             </div>
         </b-modal>
-        <div v-show="news && news.length > 0">
-            <div class="row justify-content-center">
-                <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
-            </div>
-        </div>
     </div>
 </template>
 

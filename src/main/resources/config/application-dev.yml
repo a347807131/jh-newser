@@ -58,7 +58,6 @@ spring:
     port: 587
     username: 787133509@qq.com
     password: jqasmgrtjhqabcbg
-    from: 787133509@qq.com
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -92,6 +91,7 @@ jhipster:
       key: e537701516b67f31d8ee12f25c2c6d44d7f62030d3d09f6dc7feb856f2d970bb92c62333ba9af7402a227ed2aa8fefdc8d1e
   mail: # specific JHipster mail property, for standard properties see MailProperties
     base-url: http://127.0.0.1:8080
+    from: 787133509@qq.com
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

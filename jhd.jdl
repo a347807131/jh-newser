@@ -1,8 +1,12 @@
 entity News {
   title String,
+  //来源
   source String,
+  //源链接
   link String required unique,
+  //种类
   kind String,
+  //发布时间
   time Instant,
   content TextBlob
 }
@@ -20,4 +24,4 @@ relationship ManyToMany{
 
 service News with serviceImpl
 
-paginate News with pagination
+paginate News with infinite-scroll //pagination

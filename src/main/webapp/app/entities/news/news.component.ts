@@ -20,8 +20,10 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
   public page = 1;
   public previousPage = 1;
   public propOrder = 'id';
-  public reverse = false;
+  public reverse = true;
   public totalItems = 0;
+  public infiniteId = +new Date();
+  public links = {};
 
   public news: INews[] = [];
 
@@ -33,6 +35,16 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
 
   public clear(): void {
     this.page = 1;
+    this.links = {};
+    this.infiniteId += 1;
+    this.news = [];
+    this.retrieveAllNewss();
+  }
+
+  public reset(): void {
+    this.page = 1;
+    this.infiniteId += 1;
+    this.news = [];
     this.retrieveAllNewss();
   }
 
@@ -48,10 +60,23 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
       .retrieve(paginationQuery)
       .then(
         res => {
-          this.news = res.data;
+          if (res.data && res.data.length > 0) {
+            for (let i = 0; i < res.data.length; i++) {
+              this.news.push(res.data[i]);
+            }
+            if (res.headers && res.headers['link']) {
+              this.links = this.parseLinks(res.headers['link']);
+            }
+          }
           this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;
+          if (<any>this.$refs.infiniteLoading) {
+            (<any>this.$refs.infiniteLoading).stateChanger.loaded();
+            if (this.links !== {} && this.page > this.links['last']) {
+              (<any>this.$refs.infiniteLoading).stateChanger.complete();
+            }
+          }
         },
         err => {
           this.isFetching = false;
@@ -74,9 +99,16 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
         this.alertService().showAlert(message, 'danger');
         this.getAlertFromStore();
         this.removeId = null;
-        this.retrieveAllNewss();
+        this.reset();
         this.closeDialog();
       });
+  }
+
+  public loadMore($state): void {
+    if (!this.isFetching) {
+      this.page++;
+      this.transition();
+    }
   }
 
   public sort(): Array<any> {
@@ -101,7 +133,7 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
   public changeOrder(propOrder): void {
     this.propOrder = propOrder;
     this.reverse = !this.reverse;
-    this.transition();
+    this.reset();
   }
 
   public closeDialog(): void {
