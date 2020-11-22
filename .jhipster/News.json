@@ -45,7 +45,7 @@
   "entityTableName": "news",
   "dto": "no",
   "pagination": "infinite-scroll",
-  "service": "serviceImpl",
+  "service": "serviceClass",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,

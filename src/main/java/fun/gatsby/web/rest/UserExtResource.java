@@ -1,8 +1,7 @@
 package fun.gatsby.web.rest;
 
 import fun.gatsby.domain.UserExt;
-import fun.gatsby.repository.UserExtRepository;
-import fun.gatsby.repository.UserRepository;
+import fun.gatsby.service.UserExtService;
 import fun.gatsby.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -11,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -25,7 +23,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class UserExtResource {
 
     private final Logger log = LoggerFactory.getLogger(UserExtResource.class);
@@ -35,13 +32,10 @@ public class UserExtResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final UserExtRepository userExtRepository;
+    private final UserExtService userExtService;
 
-    private final UserRepository userRepository;
-
-    public UserExtResource(UserExtRepository userExtRepository, UserRepository userRepository) {
-        this.userExtRepository = userExtRepository;
-        this.userRepository = userRepository;
+    public UserExtResource(UserExtService userExtService) {
+        this.userExtService = userExtService;
     }
 
     /**
@@ -60,9 +54,7 @@ public class UserExtResource {
         if (Objects.isNull(userExt.getUser())) {
             throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
-        Long userId = userExt.getUser().getId();
-        userRepository.findById(userId).ifPresent(userExt::user);
-        UserExt result = userExtRepository.save(userExt);
+        UserExt result = userExtService.save(userExt);
         return ResponseEntity.created(new URI("/api/user-exts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,7 +75,7 @@ public class UserExtResource {
         if (userExt.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        UserExt result = userExtRepository.save(userExt);
+        UserExt result = userExtService.save(userExt);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, userExt.getId().toString()))
             .body(result);
@@ -96,10 +88,9 @@ public class UserExtResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userExts in body.
      */
     @GetMapping("/user-exts")
-    @Transactional(readOnly = true)
     public List<UserExt> getAllUserExts(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all UserExts");
-        return userExtRepository.findAllWithEagerRelationships();
+        return userExtService.findAll();
     }
 
     /**
@@ -109,10 +100,9 @@ public class UserExtResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userExt, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/user-exts/{id}")
-    @Transactional(readOnly = true)
     public ResponseEntity<UserExt> getUserExt(@PathVariable Long id) {
         log.debug("REST request to get UserExt : {}", id);
-        Optional<UserExt> userExt = userExtRepository.findOneWithEagerRelationships(id);
+        Optional<UserExt> userExt = userExtService.findOne(id);
         return ResponseUtil.wrapOrNotFound(userExt);
     }
 
@@ -125,7 +115,7 @@ public class UserExtResource {
     @DeleteMapping("/user-exts/{id}")
     public ResponseEntity<Void> deleteUserExt(@PathVariable Long id) {
         log.debug("REST request to delete UserExt : {}", id);
-        userExtRepository.deleteById(id);
+        userExtService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

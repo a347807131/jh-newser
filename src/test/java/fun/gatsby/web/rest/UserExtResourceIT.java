@@ -4,7 +4,7 @@ import fun.gatsby.JhdApp;
 import fun.gatsby.domain.UserExt;
 import fun.gatsby.domain.User;
 import fun.gatsby.repository.UserExtRepository;
-import fun.gatsby.repository.UserRepository;
+import fun.gatsby.service.UserExtService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,11 +45,15 @@ public class UserExtResourceIT {
 
     @Autowired
     private UserExtRepository userExtRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     @Mock
     private UserExtRepository userExtRepositoryMock;
+
+    @Mock
+    private UserExtService userExtServiceMock;
+
+    @Autowired
+    private UserExtService userExtService;
 
     @Autowired
     private EntityManager em;
@@ -140,7 +144,7 @@ public class UserExtResourceIT {
     @Transactional
     public void updateUserExtMapsIdAssociationWithNewId() throws Exception {
         // Initialize the database
-        userExtRepository.saveAndFlush(userExt);
+        userExtService.save(userExt);
         int databaseSizeBeforeCreate = userExtRepository.findAll().size();
 
         // Add a new parent entity
@@ -189,22 +193,22 @@ public class UserExtResourceIT {
     
     @SuppressWarnings({"unchecked"})
     public void getAllUserExtsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(userExtRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        when(userExtServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         restUserExtMockMvc.perform(get("/api/user-exts?eagerload=true"))
             .andExpect(status().isOk());
 
-        verify(userExtRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+        verify(userExtServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @SuppressWarnings({"unchecked"})
     public void getAllUserExtsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(userExtRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        when(userExtServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         restUserExtMockMvc.perform(get("/api/user-exts?eagerload=true"))
             .andExpect(status().isOk());
 
-        verify(userExtRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+        verify(userExtServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -232,7 +236,7 @@ public class UserExtResourceIT {
     @Transactional
     public void updateUserExt() throws Exception {
         // Initialize the database
-        userExtRepository.saveAndFlush(userExt);
+        userExtService.save(userExt);
 
         int databaseSizeBeforeUpdate = userExtRepository.findAll().size();
 
@@ -275,7 +279,7 @@ public class UserExtResourceIT {
     @Transactional
     public void deleteUserExt() throws Exception {
         // Initialize the database
-        userExtRepository.saveAndFlush(userExt);
+        userExtService.save(userExt);
 
         int databaseSizeBeforeDelete = userExtRepository.findAll().size();
 

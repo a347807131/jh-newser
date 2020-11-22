@@ -22,6 +22,6 @@ relationship ManyToMany{
 	UserExt{news(title) } to News{userExt}
 }
 
-service News with serviceImpl
+service * with serviceClass
 
 paginate News with infinite-scroll //pagination

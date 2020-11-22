@@ -2,7 +2,7 @@
   "jhdApp": {
     "news": {
       "home": {
-        "title": "news",
+        "title": "News",
         "createLabel": "Create a new News",
         "createOrEditLabel": "Create or edit a News",
         "notFound": "No News found"
