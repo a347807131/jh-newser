@@ -33,7 +33,7 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/jhd?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://jhd-mysql:3306/jhd?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: root
     password:
     hikari:
@@ -50,10 +50,10 @@ spring:
   liquibase:
     contexts: prod
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    host: smtp.qq.com
+    port: 587
+    username: 787133509@qq.com
+    password: jqasmgrtjhqabcbg
   thymeleaf:
     cache: true
 
@@ -102,7 +102,8 @@ jhipster:
       # security key (this key should be unique for your application, and kept secret)
       key: e537701516b67f31d8ee12f25c2c6d44d7f62030d3d09f6dc7feb856f2d970bb92c62333ba9af7402a227ed2aa8fefdc8d1e
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://my-server-url-to-change # Modify according to your server's URL
+    base-url: http://news.aexzero.xyz # Modify according to your server's URL
+    from: 787133509@qq.com
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

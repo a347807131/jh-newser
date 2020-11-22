@@ -2,14 +2,23 @@
     <div class="row justify-content-center">
         <div class="col-8">
             <div v-if="news">
-                <h2 class="jh-entity-heading"><span v-text="$t('jhdApp.news.detail.title')">News</span> {{ news.id }}
-                </h2>
+                <button type="submit"
+                        v-on:click.prevent="previousState()"
+                        class="btn btn-info">
+                    <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span
+                    v-text="$t('entity.action.back')"> Back</span>
+                </button>
+                <router-link v-if="news.id" :to="{name: 'NewsEdit', params: {newsId: news.id}}" tag="button"
+                             class="btn btn-primary">
+                    <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span
+                    v-text="$t('entity.action.edit')"> Edit</span>
+                </router-link>
                 <dl class="row jh-entity-details">
                     <dt>
-                        <span v-text="$t('jhdApp.news.title')">Title</span>
+                        <h2 v-text="$t('jhdApp.news.title')+':'">Title</h2>
                     </dt>
                     <dd>
-                        <span>{{ news.title }}</span>
+                        <h2>{{ news.title }}</h2>
                     </dd>
                     <dt>
                         <span v-text="$t('jhdApp.news.source')">Source</span>
@@ -42,17 +51,7 @@
                 <div>
                     <span v-html="news.content"></span>
                 </div>
-                <button type="submit"
-                        v-on:click.prevent="previousState()"
-                        class="btn btn-info">
-                    <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span
-                    v-text="$t('entity.action.back')"> Back</span>
-                </button>
-                <router-link v-if="news.id" :to="{name: 'NewsEdit', params: {newsId: news.id}}" tag="button"
-                             class="btn btn-primary">
-                    <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span
-                    v-text="$t('entity.action.edit')"> Edit</span>
-                </router-link>
+
             </div>
         </div>
     </div>
