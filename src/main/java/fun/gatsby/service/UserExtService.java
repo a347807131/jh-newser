@@ -1,11 +1,14 @@
 package fun.gatsby.service;
 
+import fun.gatsby.domain.News;
+import fun.gatsby.domain.User;
 import fun.gatsby.domain.UserExt;
 import fun.gatsby.repository.UserExtRepository;
 import fun.gatsby.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,9 @@ public class UserExtService {
     private final UserExtRepository userExtRepository;
 
     private final UserRepository userRepository;
+
+    @Autowired
+    private NewsService newsService;
 
     public UserExtService(UserExtRepository userExtRepository, UserRepository userRepository) {
         this.userExtRepository = userExtRepository;
@@ -86,5 +92,16 @@ public class UserExtService {
     public void delete(Long id) {
         log.debug("Request to delete UserExt : {}", id);
         userExtRepository.deleteById(id);
+    }
+
+    /**
+     *  Prefer news by userLogin and newsId
+     */
+    public UserExt preferNews(String userLogin, Long newsId) {
+        News news = newsService.findOne(newsId).orElseThrow();
+        User user = userRepository.findOneByLogin(userLogin).orElseThrow();
+        UserExt userExt = userExtRepository.findOneWithEagerRelationships(user.getId()).orElseThrow();
+        userExt.addNews(news);
+        return userExtRepository.save(userExt);
     }
 }

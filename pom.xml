@@ -21,8 +21,9 @@
 
     <properties>
         <!-- Build properties -->
+        <start-class>fun.gatsby.JhdApp</start-class>
         <maven.version>3.3.9</maven.version>
-        <java.version>1.8</java.version>
+        <java.version>10</java.version>
         <node.version>v12.16.1</node.version>
         <npm.version>6.14.5</npm.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -442,7 +443,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>${maven-war-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>default-war</id>
@@ -646,6 +646,7 @@
                     </dependencies>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${maven-clean-plugin.version}</version>
                 </plugin>
@@ -918,6 +919,7 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-clean-plugin</artifactId>
                         <configuration>
                             <filesets>
