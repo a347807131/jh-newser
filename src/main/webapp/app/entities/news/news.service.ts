@@ -71,4 +71,30 @@ export default class NewsService {
         });
     });
   }
+
+  public prefer(id:number):Promise<INews>{
+    return new Promise<INews>((resolve, reject) => {
+      axios
+        .post(`/api/prefer/news/${id}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public unprefer(id:number):Promise<INews>{
+    return new Promise<INews>((resolve, reject) => {
+      axios
+        .delete(`/api/prefer/news/${id}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 }

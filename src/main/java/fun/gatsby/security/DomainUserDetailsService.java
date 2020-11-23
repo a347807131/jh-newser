@@ -1,10 +1,13 @@
 package fun.gatsby.security;
 
 import fun.gatsby.domain.User;
+import fun.gatsby.domain.UserExt;
+import fun.gatsby.repository.UserExtRepository;
 import fun.gatsby.repository.UserRepository;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +29,9 @@ public class DomainUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    @Autowired
+    private UserExtRepository userExtRepository;
+
     public DomainUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -45,6 +51,14 @@ public class DomainUserDetailsService implements UserDetailsService {
         return userRepository.findOneWithAuthoritiesByLogin(lowercaseLogin)
             .map(user -> createSpringSecurityUser(lowercaseLogin, user))
             .orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
+
+    }
+
+    public UserExt loadUserExtByUsername(final String login){
+        log.debug("get current userext : {}", login);
+        User user = userRepository
+            .findOneByLogin(login).orElseThrow();
+        return userExtRepository.findOneWithEagerRelationships(user.getId()).orElseThrow();
 
     }
 

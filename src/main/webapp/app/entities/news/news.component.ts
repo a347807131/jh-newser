@@ -8,6 +8,7 @@ import AlertMixin from '@/shared/alert/alert.mixin';
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import NewsService from './news.service';
+import axios from "axios";
 
 @Component({
   mixins: [Vue2Filters.mixin],
@@ -28,6 +29,8 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
   public news: INews[] = [];
 
   public isFetching = false;
+
+  public stared=false;
 
   public mounted(): void {
     this.retrieveAllNewss();
@@ -88,6 +91,30 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
     this.removeId = instance.id;
     if (<any>this.$refs.removeEntity) {
       (<any>this.$refs.removeEntity).show();
+    }
+  }
+
+  public preferNews(instance: INews):void{
+    var newsId=instance.id
+    let elStar = document.getElementById('star-'+newsId);
+    if(elStar.getAttribute('class')==='el-icon-star-off') {
+      this.newsService()
+        .prefer(newsId)
+        .then(() => {
+          const message = this.$t('jhdApp.news.preferd', {param: this.removeId});
+          this.alertService().showAlert(message, 'danger');
+          elStar.setAttribute('class', 'el-icon-star-on')
+          // this.stared=true
+        });
+    } else {
+      this.newsService()
+        .unprefer(newsId)
+        .then(() => {
+          const message = this.$t('jhdApp.news.preferd', {param: this.removeId});
+          this.alertService().showAlert(message, 'danger');
+          elStar.setAttribute('class', 'el-icon-star-off')
+          // this.stared=false
+        });
     }
   }
 

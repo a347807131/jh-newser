@@ -8,6 +8,7 @@ import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,11 +33,9 @@ public class UserExtResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final UserExtService userExtService;
+    @Autowired
+    private UserExtService userExtService;
 
-    public UserExtResource(UserExtService userExtService) {
-        this.userExtService = userExtService;
-    }
 
     /**
      * {@code POST  /user-exts} : Create a new userExt.

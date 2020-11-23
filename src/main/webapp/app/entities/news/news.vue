@@ -59,6 +59,11 @@
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
                             </b-button>
+                            <el-button v-on:click="preferNews(news)"
+                                      class="btn btn-sm">
+<!--                                <span :id="'star-'+news.id" v-bind:class="{'el-icon-star-off':!stared,'el-icon-star-on':stared}"></span>-->
+                                <span :id="'star-'+news.id" class="el-icon-star-off"></span>
+                            </el-button>
                         </div>
                     </td>
                 </tr>

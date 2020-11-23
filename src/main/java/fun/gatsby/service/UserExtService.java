@@ -104,4 +104,12 @@ public class UserExtService {
         userExt.addNews(news);
         return userExtRepository.save(userExt);
     }
+
+    public UserExt unpreferNews(String userLogin, Long newsId) {
+        News news = newsService.findOne(newsId).orElseThrow();
+        User user = userRepository.findOneByLogin(userLogin).orElseThrow();
+        UserExt userExt = userExtRepository.findOneWithEagerRelationships(user.getId()).orElseThrow();
+        userExt.removeNews(news);
+        return userExtRepository.save(userExt);
+    }
 }

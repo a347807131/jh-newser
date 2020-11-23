@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * TestResource controller
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 public class TestResource {
 
     private final Logger log = LoggerFactory.getLogger(TestResource.class);
