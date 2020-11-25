@@ -3,18 +3,18 @@
         <b-navbar-brand class="logo" b-link to="/">
             <span class="logo-img"></span>
             <span v-text="$t('global.title')" class="navbar-title">jhd</span> <span class="navbar-version">{{version}}</span>
-        </b-navbar-brand>      
-        <b-navbar-toggle 
-        right 
-        class="jh-navbar-toggler d-lg-none" 
-        href="javascript:void(0);"  
-        data-toggle="collapse" 
-        target="header-tabs" 
-        aria-expanded="false" 
+        </b-navbar-brand>
+        <b-navbar-toggle
+        right
+        class="jh-navbar-toggler d-lg-none"
+        href="javascript:void(0);"
+        data-toggle="collapse"
+        target="header-tabs"
+        aria-expanded="false"
         aria-label="Toggle navigation">
             <font-awesome-icon icon="bars" />
         </b-navbar-toggle>
-           
+
         <b-collapse is-nav id="header-tabs">
             <b-navbar-nav class="ml-auto">
                 <b-nav-item to="/" exact>
@@ -26,7 +26,6 @@
                 <b-nav-item-dropdown
                     right
                     id="entity-menu"
-                    v-if="authenticated"
                     active-class="active" class="pointer">
                     <span slot="button-content" class="navbar-dropdown-menu">
                         <font-awesome-icon icon="th-list" />
@@ -36,7 +35,9 @@
                         <font-awesome-icon icon="asterisk" />
                         <span v-text="$t('global.menu.entities.news')">News</span>
                     </b-dropdown-item>
-                    <b-dropdown-item to="/user-ext">
+                    <b-dropdown-item to="/user-ext"
+                                     v-if="authenticated"
+                    >
                         <font-awesome-icon icon="asterisk" />
                         <span v-text="$t('global.menu.entities.userExt')">UserExt</span>
                     </b-dropdown-item>

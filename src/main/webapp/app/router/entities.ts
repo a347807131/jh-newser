@@ -23,7 +23,7 @@ export default [
     path: '/news',
     name: 'News',
     component: News,
-    meta: { authorities: [Authority.USER] },
+    meta: { authorities: [] },
   },
   {
     path: '/news/new',
@@ -41,7 +41,7 @@ export default [
     path: '/news/:newsId/view',
     name: 'NewsView',
     component: NewsDetails,
-    meta: { authorities: [Authority.USER] },
+    meta: { authorities: [] },
   },
 
   {

@@ -38,14 +38,14 @@
                         <label class="form-control-label" v-text="$t('jhdApp.news.time')" for="news-time">Time</label>
                         <div class="d-flex">
                             <input id="news-time" type="datetime-local" class="form-control" name="time" :class="{'valid': !$v.news.time.$invalid, 'invalid': $v.news.time.$invalid }"
-                            
+
                             :value="convertDateTimeFromServer($v.news.time.$model)"
                             @change="updateInstantField('time', $event)"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('jhdApp.news.content')" for="news-content">Content</label>
-                        <textarea class="form-control" name="content" id="news-content"
+                        <textarea :rows="10" class="form-control" name="content" id="news-content"
                             :class="{'valid': !$v.news.content.$invalid, 'invalid': $v.news.content.$invalid }" v-model="$v.news.content.$model" ></textarea>
                     </div>
                 </div>

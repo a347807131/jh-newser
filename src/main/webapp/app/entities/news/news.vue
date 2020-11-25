@@ -60,7 +60,6 @@
                                       class="btn btn-sm">
                                 <i :id="'star-'+news.id"
                                       v-bind:class="{'el-icon-star-off':!allCurrentUsersNews.includes(news.id),'el-icon-star-on':allCurrentUsersNews.includes(news.id)}"></i>
-<!--                                <i :id="'star-'+news.id" class="el-icon-star-off"></i>-->
                             </b-button>
                         </div>
                     </td>
