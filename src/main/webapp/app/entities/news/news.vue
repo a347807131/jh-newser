@@ -46,24 +46,22 @@
                         <div class="btn-group">
                             <router-link :to="{name: 'NewsView', params: {newsId: news.id}}" tag="button" class="btn btn-info btn-sm details">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
                             </router-link>
                             <router-link :to="{name: 'NewsEdit', params: {newsId: news.id}}"  tag="button" class="btn btn-primary btn-sm edit">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>
                             <b-button v-on:click="prepareRemove(news)"
                                    variant="danger"
                                    class="btn btn-sm"
                                    v-b-modal.removeEntity>
-                                <font-awesome-icon icon="times"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                                <i class="el-icon-delete"></i>
                             </b-button>
-                            <el-button v-on:click="preferNews(news)"
+                            <b-button v-on:click="preferNews(news)"
                                       class="btn btn-sm">
-<!--                                <span :id="'star-'+news.id" v-bind:class="{'el-icon-star-off':!stared,'el-icon-star-on':stared}"></span>-->
-                                <span :id="'star-'+news.id" class="el-icon-star-off"></span>
-                            </el-button>
+                                <i :id="'star-'+news.id"
+                                      v-bind:class="{'el-icon-star-off':!allCurrentUsersNews.includes(news.id),'el-icon-star-on':allCurrentUsersNews.includes(news.id)}"></i>
+<!--                                <i :id="'star-'+news.id" class="el-icon-star-off"></i>-->
+                            </b-button>
                         </div>
                     </td>
                 </tr>

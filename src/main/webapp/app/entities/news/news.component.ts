@@ -1,20 +1,23 @@
-import { mixins } from 'vue-class-component';
+import {mixins} from 'vue-class-component';
 
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import {Component, Vue, Inject} from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
-import { INews } from '@/shared/model/news.model';
+import {INews} from '@/shared/model/news.model';
 import AlertMixin from '@/shared/alert/alert.mixin';
 
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import NewsService from './news.service';
-import axios from "axios";
+import UserExtDetails from "@/entities/user-ext/user-ext-details.component";
+import UserExtService from "@/entities/user-ext/user-ext.service";
 
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class News extends mixins(JhiDataUtils, AlertMixin) {
   @Inject('newsService') private newsService: () => NewsService;
+  private allCurrentUsersNews = [];
+
   private removeId: number = null;
   public itemsPerPage = 20;
   public queryCount: number = null;
@@ -30,10 +33,9 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
 
   public isFetching = false;
 
-  public stared=false;
-
   public mounted(): void {
     this.retrieveAllNewss();
+    this.resetAllCurrentUsersNews();
   }
 
   public clear(): void {
@@ -94,10 +96,11 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
     }
   }
 
-  public preferNews(instance: INews):void{
-    var newsId=instance.id
-    let elStar = document.getElementById('star-'+newsId);
-    if(elStar.getAttribute('class')==='el-icon-star-off') {
+  public preferNews(instance: INews): void {
+    this.resetAllCurrentUsersNews();
+    var newsId = instance.id
+    let elStar = document.getElementById('star-' + newsId);
+    if (elStar.getAttribute('class') === 'el-icon-star-off') {
       this.newsService()
         .prefer(newsId)
         .then(() => {
@@ -122,7 +125,7 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
     this.newsService()
       .delete(this.removeId)
       .then(() => {
-        const message = this.$t('jhdApp.news.deleted', { param: this.removeId });
+        const message = this.$t('jhdApp.news.deleted', {param: this.removeId});
         this.alertService().showAlert(message, 'danger');
         this.getAlertFromStore();
         this.removeId = null;
@@ -165,5 +168,21 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
 
   public closeDialog(): void {
     (<any>this.$refs.removeEntity).hide();
+  }
+
+  resetAllCurrentUsersNews(): void {
+    var login = this.$store.getters.account ? this.$store.getters.account.login : '';
+    this.newsService()
+      .findPreferedNewsByLogin(login)
+      .then(
+        data => {
+          if (data && data.length > 0) {
+            for (let i = 0; i < data.length; i++) {
+              this.allCurrentUsersNews.push(data[i]['id']);
+            }
+            console.log(this.allCurrentUsersNews)
+          }
+        },
+      );
   }
 }

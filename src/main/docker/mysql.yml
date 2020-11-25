@@ -1,6 +1,6 @@
 version: '2'
 services:
-  jhd-mysql:
+  mysql:
     image: mysql:5.7
     volumes:
         - ~/volumes/jhd/mysql/:/var/lib/mysql/

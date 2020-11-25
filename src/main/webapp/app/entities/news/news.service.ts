@@ -97,4 +97,16 @@ export default class NewsService {
         });
     });
   }
+  public findPreferedNewsByLogin(login:string):Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`/api/prefer/news/`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 }

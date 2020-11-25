@@ -15,4 +15,4 @@ services:
   jhd-mysql:
     extends:
       file: mysql.yml
-      service: jhd-mysql
+      service: mysql
