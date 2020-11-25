@@ -10,12 +10,15 @@ import JhiDataUtils from '@/shared/data/data-utils.service';
 import NewsService from './news.service';
 import UserExtDetails from "@/entities/user-ext/user-ext-details.component";
 import UserExtService from "@/entities/user-ext/user-ext.service";
+import LoginService from "@/account/login.service";
 
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class News extends mixins(JhiDataUtils, AlertMixin) {
   @Inject('newsService') private newsService: () => NewsService;
+  @Inject("loginService")
+  public loginService: () => LoginService;
   private allCurrentUsersNews = [];
 
   private removeId: number = null;
@@ -171,7 +174,8 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
   }
 
   resetAllCurrentUsersNews(): void {
-    var login = this.$store.getters.account ? this.$store.getters.account.login : '';
+    if (!this.$store.getters.authenticated) return;
+    const login = this.$store.getters.account ? this.$store.getters.account.login : '';
     this.newsService()
       .findPreferedNewsByLogin(login)
       .then(
@@ -180,9 +184,12 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
             for (let i = 0; i < data.length; i++) {
               this.allCurrentUsersNews.push(data[i]['id']);
             }
-            console.log(this.allCurrentUsersNews)
           }
         },
       );
+  }
+
+  public openLogin(): void {
+    this.$root.$emit('bv::show::modal', 'login-page');
   }
 }
