@@ -153,7 +153,7 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
   }
 
   public sort(): Array<any> {
-    const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
+    const result = [this.propOrder + ',' + (this.reverse ?  'desc':'asc')];
     if (this.propOrder !== 'id') {
       result.push('id');
     }
