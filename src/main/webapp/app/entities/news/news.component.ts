@@ -110,16 +110,24 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
           const message = this.$t('jhdApp.news.preferd', {param: this.removeId});
           this.alertService().showAlert(message, 'danger');
           elStar.setAttribute('class', 'el-icon-star-on')
-          // this.stared=true
+          this.$notify({
+            title: 'Info',
+            message: 'prefered sucessully',
+            type:'success'
+          });
         });
     } else {
       this.newsService()
         .unprefer(newsId)
         .then(() => {
           const message = this.$t('jhdApp.news.preferd', {param: this.removeId});
-          this.alertService().showAlert(message, 'danger');
           elStar.setAttribute('class', 'el-icon-star-off')
-          // this.stared=false
+
+          this.$notify({
+            title: 'Info',
+            message: 'unprefered sucessully',
+            type:'success'
+          });
         });
     }
   }
@@ -190,6 +198,6 @@ export default class News extends mixins(JhiDataUtils, AlertMixin) {
   }
 
   public openLogin(): void {
-    this.$root.$emit('bv::show::modal', 'login-page');
+    this.loginService().openLogin(this.$root);
   }
 }
