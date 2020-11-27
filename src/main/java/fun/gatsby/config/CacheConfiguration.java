@@ -54,6 +54,7 @@ public class CacheConfiguration {
             createCache(cm, fun.gatsby.domain.UserExt.class.getName());
             createCache(cm, fun.gatsby.domain.News.class.getName() + ".userExts");
             createCache(cm, fun.gatsby.domain.UserExt.class.getName() + ".news");
+            createCache(cm, fun.gatsby.domain.Tops.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

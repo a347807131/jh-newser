@@ -11,6 +11,16 @@ entity News {
   content TextBlob
 }
 
+//热搜
+entity Tops{
+	title String,
+    link String,
+    source String,
+    time LocalDate,
+    seq Integer,
+    note String,
+}
+
 entity UserExt{
 	pthone String,
 }
@@ -24,4 +34,4 @@ relationship ManyToMany{
 
 service * with serviceClass
 
-paginate News with infinite-scroll //pagination
+paginate News,Tops with infinite-scroll //pagination

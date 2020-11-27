@@ -1,0 +1,27 @@
+{
+  "jhdApp": {
+    "tops": {
+      "home": {
+        "title": "Tops",
+        "createLabel": "Create a new Tops",
+        "createOrEditLabel": "Create or edit a Tops",
+        "notFound": "No Tops found"
+      },
+      "created": "A new Tops is created with identifier {{ param }}",
+      "updated": "A Tops is updated with identifier {{ param }}",
+      "deleted": "A Tops is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Tops {{ id }}?"
+      },
+      "detail": {
+        "title": "Tops"
+      },
+      "title": "Title",
+      "link": "Link",
+      "source": "Source",
+      "time": "Time",
+      "seq": "Seq",
+      "note": "Note"
+    }
+  }
+}

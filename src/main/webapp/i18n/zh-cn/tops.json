@@ -1,0 +1,27 @@
+{
+  "jhdApp": {
+    "tops": {
+      "home": {
+        "title": "Tops",
+        "createLabel": "创建新 Tops",
+        "createOrEditLabel": "创建或编辑 Tops",
+        "notFound": "No Tops found"
+      },
+      "created": "Tops {{ param }} 创建成功",
+      "updated": "Tops {{ param }} 更新成功",
+      "deleted": "Tops {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Tops {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Tops"
+      },
+      "title": "Title",
+      "link": "Link",
+      "source": "Source",
+      "time": "Time",
+      "seq": "Seq",
+      "note": "Note"
+    }
+  }
+}

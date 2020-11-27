@@ -14,11 +14,15 @@ const UserExt = () => import('@/entities/user-ext/user-ext.vue');
 const UserExtUpdate = () => import('@/entities/user-ext/user-ext-update.vue');
 // prettier-ignore
 const UserExtDetails = () => import('@/entities/user-ext/user-ext-details.vue');
+// prettier-ignore
+const Tops = () => import('@/entities/tops/tops.vue');
+// prettier-ignore
+const TopsUpdate = () => import('@/entities/tops/tops-update.vue');
+// prettier-ignore
+const TopsDetails = () => import('@/entities/tops/tops-details.vue');
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 export default [
-
-
   {
     path: '/news',
     name: 'News',
@@ -69,5 +73,54 @@ export default [
     meta: { authorities: [Authority.USER] },
   },
 
+  {
+    path: '/tops',
+    name: 'Tops',
+    component: Tops,
+    meta: { authorities: [] },
+  },
+  {
+    path: '/tops/new',
+    name: 'TopsCreate',
+    component: TopsUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/tops/:topsId/edit',
+    name: 'TopsEdit',
+    component: TopsUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/tops/:topsId/view',
+    name: 'TopsView',
+    component: TopsDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+
+  {
+    path: '/tops',
+    name: 'Tops',
+    component: Tops,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/tops/new',
+    name: 'TopsCreate',
+    component: TopsUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/tops/:topsId/edit',
+    name: 'TopsEdit',
+    component: TopsUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/tops/:topsId/view',
+    name: 'TopsView',
+    component: TopsDetails,
+    meta: { authorities: [Authority.USER] },
+  },
   // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here
 ];
