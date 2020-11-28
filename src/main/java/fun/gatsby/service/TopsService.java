@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -71,5 +73,10 @@ public class TopsService {
     public void delete(Long id) {
         log.debug("Request to delete Tops : {}", id);
         topsRepository.deleteById(id);
+    }
+
+    public List<Tops> findByDate(LocalDate date) {
+        log.debug("Request to get Tops by date : {}", date);
+        return topsRepository.findByTime(date);
     }
 }

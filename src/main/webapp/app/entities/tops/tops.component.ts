@@ -1,13 +1,13 @@
-import { mixins } from 'vue-class-component';
+import {mixins} from 'vue-class-component';
 
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import {Component, Vue, Inject} from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
-import { ITops } from '@/shared/model/tops.model';
 import AlertMixin from '@/shared/alert/alert.mixin';
 
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
 import TopsService from './tops.service';
+import {ITops} from "@/shared/model/tops.model";
 
 @Component({
   mixins: [Vue2Filters.mixin],
@@ -28,10 +28,31 @@ export default class Tops extends mixins(JhiDataUtils, AlertMixin) {
   public tops: ITops[] = [];
 
   public isFetching = false;
+  private groupedTop=new Map<String,Array<any>>();
 
   public mounted(): void {
+    this.retrieveTopsBydate(new Date());
     this.retrieveAllTopss();
   }
+
+  public retrieveTopsBydate(date: Date): void {
+
+    this.topsService()
+      .getByDate(date)
+      .then(data => {
+        for (let i = 0; i < data.length; i++) {
+          let e = data[i]
+          if (this.groupedTop.has(e.source)==false) {
+            var list = []
+            list.push(e)
+            this.groupedTop.set(e.source, list)
+          } else {
+            this.groupedTop.get(e.source).push(e)
+          }
+        }
+      })
+  }
+
 
   public clear(): void {
     this.page = 1;
@@ -95,7 +116,7 @@ export default class Tops extends mixins(JhiDataUtils, AlertMixin) {
     this.topsService()
       .delete(this.removeId)
       .then(() => {
-        const message = this.$t('jhdApp.tops.deleted', { param: this.removeId });
+        const message = this.$t('jhdApp.tops.deleted', {param: this.removeId});
         this.alertService().showAlert(message, 'danger');
         this.getAlertFromStore();
         this.removeId = null;
@@ -139,4 +160,5 @@ export default class Tops extends mixins(JhiDataUtils, AlertMixin) {
   public closeDialog(): void {
     (<any>this.$refs.removeEntity).hide();
   }
+
 }

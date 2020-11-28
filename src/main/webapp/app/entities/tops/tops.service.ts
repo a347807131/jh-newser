@@ -3,6 +3,7 @@ import axios from 'axios';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
 import { ITops } from '@/shared/model/tops.model';
+import moment from "moment";
 
 const baseApiUrl = 'api/tops';
 
@@ -63,6 +64,20 @@ export default class TopsService {
     return new Promise<ITops>((resolve, reject) => {
       axios
         .put(`${baseApiUrl}`, entity)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getByDate(date: Date):Promise<any>{
+    let s = moment(date).format("yyyy-MM-DD");
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${baseApiUrl}/by/${s}`)
         .then(res => {
           resolve(res.data);
         })

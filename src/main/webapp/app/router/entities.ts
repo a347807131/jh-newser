@@ -98,29 +98,5 @@ export default [
     meta: { authorities: [Authority.USER] },
   },
 
-  {
-    path: '/tops',
-    name: 'Tops',
-    component: Tops,
-    meta: { authorities: [Authority.USER] },
-  },
-  {
-    path: '/tops/new',
-    name: 'TopsCreate',
-    component: TopsUpdate,
-    meta: { authorities: [Authority.USER] },
-  },
-  {
-    path: '/tops/:topsId/edit',
-    name: 'TopsEdit',
-    component: TopsUpdate,
-    meta: { authorities: [Authority.USER] },
-  },
-  {
-    path: '/tops/:topsId/view',
-    name: 'TopsView',
-    component: TopsDetails,
-    meta: { authorities: [Authority.USER] },
-  },
   // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here
 ];
